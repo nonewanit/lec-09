@@ -1,0 +1,35 @@
+<!-- <style>
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 15px;
+  }
+</style> -->
+<%= @temp %>
+<table class="table">
+  <tr>
+    <th></th>
+    <th>Subject</th>
+    <th>Score</th>
+    <% if session[:logged_in] == true%><th></th><% end %>
+    <th></th>
+  </tr>
+  <% i = 1 %>
+  <% for data in @db %>
+    <tr>
+      <td><%= i %></td>
+      <td><%= data.subject %></td>
+      <td><%= data.point %></td>
+      <% if session[:logged_in] == true%> <td><%= button_to('edit',edit_score_url(data.id),method: :get, class: 'btn btn-primary')  %> </td><% end %>
+      <td><%= button_to('delete', score_url(data.id), method: :delete, class: 'btn btn-primary') %></td>
+      <% i+=1 %>
+    </tr>
+  <% end %>
+</table>
+<%= button_to('add', new_score_url(data.id), method: :get,class: 'btn btn-primary') %>
+Average = <%= @avg %>
+<br>
+Max subject is <%= @mxsub %>
+
